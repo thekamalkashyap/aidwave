@@ -8,17 +8,18 @@ import {
   ImageStyle,
   TouchableOpacity,
   ScrollView,
+  Pressable,
+  ImageBackground,
 } from "react-native";
-import {
-  Entypo,
-  Fontisto,
-  Ionicons,
-  SimpleLineIcons,
-} from "@expo/vector-icons";
+
 import { router } from "expo-router";
 import api from "@/api";
 import { useLoginStore } from "@/stores/login";
 import { observer } from "mobx-react-lite";
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from "react-native-responsive-screen";
 
 function LoginScreen() {
   const {
@@ -52,7 +53,7 @@ function LoginScreen() {
   };
 
   const handleSignIn = async () => {
-    router.push("/(tabs)");
+    // router.push("/(tabs)");
     // await api
     //   .post("/login", {
     //     email: userInfo.email,
@@ -71,103 +72,100 @@ function LoginScreen() {
   return (
     <View style={{ flex: 1 }}>
       <ScrollView contentContainerStyle={$ScrollViewStyle}>
-        <Image
-          style={$signInImage}
-          source={require("@/assets/signin/signin.png")}
-        />
-        <Text style={$welcomeText}>Welcome Back!</Text>
-        <Text style={$learningText}>Login to your of Echoistic account.</Text>
-        <View style={$inputContainer}>
-          <View>
-            <TextInput
-              style={$input}
-              keyboardType="email-address"
-              value={userInfo.email}
-              placeholder="info@echoistic.com"
-              onChangeText={(value) =>
-                setUserInfo({ ...userInfo, email: value })
-              }
+        <ImageBackground
+          source={require("@/assets/images/v4.png")}
+          style={{
+            height: hp(50),
+            justifyContent: "center",
+          }}
+        >
+          <Image style={$signInImage} source={require("@/assets/login.png")} />
+        </ImageBackground>
+        <View
+          style={{
+            height: hp(50),
+            alignItems: "center",
+            justifyContent: "center",
+            gap: 30,
+          }}
+        >
+          <Text
+            style={{
+              textAlign: "center",
+              fontSize: 30,
+              fontFamily: "spaceGroteskBold",
+            }}
+          >
+            Login & Register
+          </Text>
+          <Pressable
+            style={{
+              borderWidth: 2,
+              borderRadius: 50,
+              padding: 10,
+              width: wp(70),
+              flexDirection: "row",
+              justifyContent: "center",
+            }}
+          >
+            <Image
+              source={require("@/assets/google.png")}
+              style={{ height: 30, width: 30, marginRight: 10 }}
             />
-            <Fontisto
-              style={{ position: "absolute", left: 26, top: 17.8 }}
-              name="email"
-              size={20}
-              color={"#A1A1A1"}
-            />
-            <View style={{ marginTop: 15 }}>
-              <TextInput
-                style={$input}
-                keyboardType="default"
-                secureTextEntry={!isPasswordVisible}
-                defaultValue=""
-                placeholder="********"
-                onChangeText={handlePasswordValidation}
-              />
-              <TouchableOpacity
-                style={$visibleIcon}
-                onPress={() => setPasswordVisible(!isPasswordVisible)}
-              >
-                {isPasswordVisible ? (
-                  <Ionicons
-                    name="eye-off-outline"
-                    size={23}
-                    color={"#747474"}
-                  />
-                ) : (
-                  <Ionicons name="eye-outline" size={23} color={"#747474"} />
-                )}
-              </TouchableOpacity>
-              <SimpleLineIcons
-                style={$icon2}
-                name="lock"
-                size={20}
-                color={"#A1A1A1"}
-              />
-            </View>
-            {error && (
-              <View style={$errorContainer}>
-                <Entypo name="cross" size={18} color={"red"} />
-                <Text style={{ color: "red", fontSize: 11, marginTop: -1 }}>
-                  {error}
-                </Text>
-              </View>
-            )}
-            <TouchableOpacity
-              onPress={() => router.push("/(routes)/forgot-password")}
-            >
-              <Text style={$forgotSection}>Forgot Password?</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
+            <Text
               style={{
-                padding: 16,
-                borderRadius: 8,
-                marginHorizontal: 16,
-                backgroundColor: "#2467EC",
-                marginTop: 15,
+                fontSize: 24,
+                fontFamily: "spaceGroteskBold",
+                marginTop: -3,
               }}
-              onPress={handleSignIn}
             >
-              <Text
-                style={{
-                  color: "white",
-                  textAlign: "center",
-                  fontSize: 16,
-                  fontFamily: "spaceGroteskSemiBold",
-                }}
-              >
-                Sign In
-              </Text>
-            </TouchableOpacity>
-
-            <View style={$redirect}>
-              <Text style={{ fontSize: 18, fontFamily: "spaceGroteskBold" }}>
-                Don't have an account?
-              </Text>
-              <TouchableOpacity onPress={() => router.push("/(routes)/signup")}>
-                <Text style={$redirectText}>Sign Up</Text>
-              </TouchableOpacity>
-            </View>
+              Sign in with Google
+            </Text>
+          </Pressable>
+          <Pressable
+            style={{
+              borderWidth: 2,
+              borderRadius: 50,
+              padding: 10,
+              width: wp(70),
+              flexDirection: "row",
+              justifyContent: "center",
+            }}
+          >
+            <Image
+              source={require("@/assets/facebook.png")}
+              style={{ height: 30, width: 30, marginRight: 10 }}
+            />
+            <Text
+              style={{
+                fontSize: 24,
+                fontFamily: "spaceGroteskBold",
+                marginTop: -3,
+              }}
+            >
+              Sign in with Google
+            </Text>
+          </Pressable>
+          <Pressable
+            onPress={() => router.push("/phone")}
+            style={{
+              borderWidth: 2,
+              borderRadius: 50,
+              padding: 10,
+              width: wp(70),
+              flexDirection: "row",
+              justifyContent: "center",
+            }}
+          >
+            <Text style={{ fontSize: 24, fontFamily: "spaceGroteskBold" }}>
+              Phone Number
+            </Text>
+          </Pressable>
+          <View>
+            <Text style={$learningText}>Aidwave Pvt. Ltd.</Text>
+            <Text style={[$learningText, { opacity: 0.5, fontSize: 14 }]}>
+              1.0.1 version
+            </Text>
           </View>
         </View>
       </ScrollView>
@@ -179,12 +177,10 @@ export default observer(LoginScreen);
 
 const $ScrollViewStyle: ViewStyle = {
   flexGrow: 1,
-  justifyContent: "center",
 };
 
 const $signInImage: ImageStyle = {
-  width: "60%",
-  height: 250,
+  width: "100%",
   alignSelf: "center",
   marginBottom: 20,
 };

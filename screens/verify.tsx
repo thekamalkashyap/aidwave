@@ -32,18 +32,12 @@ export default function VerifyScreen() {
 
   const handleSumbit = async () => {
     const otp = code.join("");
+    router.push("/home");
   };
 
   return (
     <View style={$container}>
-      <Image
-        style={$verifyImage}
-        source={require("@/assets/signin/verify.png")}
-      />
-      <Text style={$headerText}>Verification Code</Text>
-      <Text style={$subText}>
-        We have sent the verification code to your email address
-      </Text>
+      <Text style={$headerText}>Enter OTP</Text>
       <View style={$inputContainer}>
         {code.map((_, index) => (
           <TextInput
@@ -58,15 +52,14 @@ export default function VerifyScreen() {
           />
         ))}
       </View>
+      <View style={$loginLink}>
+        <TouchableOpacity onPress={() => router.back()}>
+          <Text style={$loginText}>Resend OTP</Text>
+        </TouchableOpacity>
+      </View>
       <View style={{ marginTop: 10 }}>
         <TouchableOpacity style={$buttonStyle} onPress={handleSumbit}>
           <Text style={$buttonText}>Submit</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={$loginLink}>
-        <Text style={$backText}>Back To?</Text>
-        <TouchableOpacity onPress={() => router.back()}>
-          <Text style={$loginText}>Sign In</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -75,7 +68,7 @@ export default function VerifyScreen() {
 
 const $container: ViewStyle = {
   flex: 1,
-  alignItems: "center",
+  // alignItems: "center",
   justifyContent: "center",
   padding: 20,
   backgroundColor: "#fff",
@@ -103,12 +96,13 @@ const $subText: TextStyle = {
 
 const $inputContainer: ViewStyle = {
   flexDirection: "row",
+  justifyContent: "center",
   marginBottom: 20,
 };
 
 const $inputBox: TextStyle = {
-  width: 60,
-  height: 60,
+  width: 80,
+  height: 80,
   borderWidth: 1,
   borderColor: "#ddd",
   textAlign: "center",
@@ -123,7 +117,7 @@ const $loginLink: ViewStyle = {
 };
 
 const $loginText: TextStyle = {
-  color: "#3876EE",
+  color: "#FA304F",
   marginLeft: 5,
   fontSize: 16,
   fontFamily: "spaceGroteskBold",
@@ -138,9 +132,8 @@ const $buttonStyle: ViewStyle = {
   padding: 16,
   borderRadius: 8,
   marginHorizontal: 16,
-  backgroundColor: "#2467EC",
+  backgroundColor: "#FA304F",
   marginTop: 15,
-  width: 200,
 };
 
 const $buttonText: TextStyle = {

@@ -5,6 +5,7 @@ import {
   ImageStyle,
   ViewStyle,
   TextStyle,
+  ImageBackground,
 } from "react-native";
 import AppIntroSlider from "react-native-app-intro-slider";
 import { router } from "expo-router";
@@ -24,22 +25,15 @@ export default function OnBoardingScreen() {
       onDone={() => {
         router.push("/login");
       }}
-      onSkip={() => {
-        router.push("/login");
-      }}
-      renderNextButton={() => (
-        <View style={$buttonStyle}>
-          <Text style={$buttonText}>Next</Text>
-        </View>
-      )}
       renderDoneButton={() => (
         <View style={$buttonStyle}>
-          <Text style={$buttonText}>Done</Text>
+          <Text style={$buttonText}>Finish</Text>
         </View>
       )}
       showSkipButton={false}
+      showNextButton={false}
+      showPrevButton={false}
       dotStyle={$dotStyle}
-      bottomButton={true}
       activeDotStyle={$activeDotStyle}
     />
   );
@@ -47,54 +41,67 @@ export default function OnBoardingScreen() {
 
 const renderItem = ({ item }: { item: onboardingSwiperDataType }) => (
   <View style={$container}>
-    <Image source={item.image} style={$imageStyle} />
-    <Text style={$titleText}>{item.title}</Text>
-    <View style={{ marginTop: 15 }}>
-      {item.description.map((desc, index) => (
-        <Text key={index} style={$descText}>
-          {desc}
-        </Text>
-      ))}
+    <View style={{ justifyContent: "flex-end", height: hp(50) }}>
+      <Image source={item.image} style={$imageStyle} />
     </View>
+    <ImageBackground
+      source={item.background}
+      resizeMode="cover"
+      style={{
+        width: "100%",
+        paddingTop: item.paddingTop,
+        height: hp(50),
+        marginTop: item.marginTop,
+      }}
+    >
+      <Text style={$titleText}>{item.title}</Text>
+      <View style={{ marginTop: 15 }}>
+        {item.description.map((desc, index) => (
+          <Text key={index} style={$descText}>
+            {desc}
+          </Text>
+        ))}
+      </View>
+    </ImageBackground>
   </View>
 );
 
 const $container: ViewStyle = {
   flex: 1,
-  paddingHorizontal: 16,
+  // paddingHorizontal: 16,
   alignItems: "center",
-  justifyContent: "center",
+  justifyContent: "space-between",
+  backgroundColor: "#ffffff",
 };
 
 const $imageStyle: ImageStyle = {
-  width: responsiveWidth(60),
-  height: responsiveWidth(60),
-  marginBottom: 30,
+  width: responsiveWidth(80),
+  height: responsiveWidth(80),
+  // marginBottom: 30,
 };
 
 const $titleText: TextStyle = {
   fontFamily: "spaceGroteskBold",
   fontSize: hp("3.5%"),
   textAlign: "center",
+  color: "white",
 };
 
 const $descText: TextStyle = {
   fontSize: hp("2%"),
-  color: "#575757",
+  color: "white",
   textAlign: "center",
   fontFamily: "spaceGroteskRegular",
   marginVertical: 5,
 };
 
 const $buttonStyle: ViewStyle = {
-  backgroundColor: "#2467EC",
-  width: responsiveWidth(88),
-  height: responsiveHeight(5.5),
-  alignSelf: "center",
-  justifyContent: "center",
-  alignItems: "center",
+  borderWidth: 2,
+  borderColor: "white",
   borderRadius: 5,
-  marginVertical: 20,
+  paddingHorizontal: 25,
+  paddingVertical: 5,
+  marginTop: -40,
 };
 
 const $buttonText: TextStyle = {
@@ -104,7 +111,7 @@ const $buttonText: TextStyle = {
 };
 
 const $dotStyle: ViewStyle = {
-  backgroundColor: "#C6C7CC",
+  backgroundColor: "#ffffff50",
   width: responsiveWidth(2.5),
   height: responsiveWidth(2.5),
   borderRadius: 5,
@@ -112,7 +119,7 @@ const $dotStyle: ViewStyle = {
 };
 
 const $activeDotStyle: ViewStyle = {
-  backgroundColor: "#2467EC",
+  backgroundColor: "#ffffff",
   width: responsiveWidth(2.5),
   height: responsiveWidth(2.5),
   borderRadius: 5,

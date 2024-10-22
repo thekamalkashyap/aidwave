@@ -1,28 +1,29 @@
 import { onboardingSwiperDataType } from "@/types/global";
+import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 
 export const onboardingSwiperData: onboardingSwiperDataType[] = [
   {
-    title: "Personalize Your Profile",
-    description: [
-      "Create a profile that stands out. Upload a picture, add a bio, and set your display name.",
-      "Let others know a bit about you!",
-    ],
-    image: require("@/assets/onboarding/intro1.png"),
+    title: "Donate Blood",
+    description: ["Request & Donate", "Blood online in a few steps."],
+    image: require("@/assets/onboarding/img1.png"),
+    background: require("@/assets/images/v1.png"),
+    marginTop: hp(11.5),
+    paddingTop: hp(12),
   },
   {
-    title: "Connect and Start Chatting",
-    description: [
-      "Start connecting with friends and discover new conversations.",
-      "Your voice matters in Echoistic!",
-    ],
-    image: require("@/assets/onboarding/intro2.png"),
+    title: "Find Nearby Hospitals",
+    description: ["GPS to locate Hospitals and", "Blood Banks."],
+    image: require("@/assets/onboarding/img2.png"),
+    background: require("@/assets/images/v2.png"),
+    marginTop: hp(12.35),
+    paddingTop: hp(12),
   },
   {
-    title: "Discover Features",
-    description: [
-      "Explore the unique features Echoistic offers. Customize your chat themes and use voice notes.",
-      "Discover how Echoistic can enhance your conversations.",
-    ],
-    image: require("@/assets/onboarding/intro3.png"),
+    title: "Emergency Services",
+    description: ["Get a ambulane & medical ", "services in a few clicks"],
+    image: require("@/assets/onboarding/img3.png"),
+    background: require("@/assets/images/v3.png"),
+    marginTop: hp(0),
+    paddingTop: hp(19),
   },
 ];
