@@ -11,10 +11,33 @@ import {
   ImageBackground,
   Pressable,
 } from "react-native";
-import { FontAwesome5, EvilIcons, AntDesign, Entypo } from "@expo/vector-icons";
+import {
+  FontAwesome5,
+  EvilIcons,
+  AntDesign,
+  Entypo,
+  FontAwesome6,
+} from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useState } from "react";
+import { Link } from "expo-router";
 
 export default function DonateScreen() {
+  const [isDonate, setIsDonate] = useState(true);
+  const tabs = [
+    {
+      title: "Blood Bank",
+      icon: <Entypo name="drop" size={24} color="#FF546B" />,
+    },
+    {
+      title: "Campaigns",
+      icon: <FontAwesome6 name="hands-praying" size={24} color="#FF546B" />,
+    },
+    {
+      title: "Appointments",
+      icon: <AntDesign name="calendar" size={24} color="#FF546B" />,
+    },
+  ];
   return (
     <SafeAreaView style={styles.container}>
       <ImageBackground source={require("@/assets/images/h1.png")}>
@@ -43,7 +66,7 @@ export default function DonateScreen() {
                 backgroundColor: "white",
                 borderRadius: 50,
               }}
-              source={require("@/assets/login.png")}
+              source={require("@/assets/images/profile.png")}
             />
           </View>
         </View>
@@ -113,10 +136,10 @@ export default function DonateScreen() {
           <View style={{ flex: 1, justifyContent: "center" }}>
             <Image
               style={{
-                height: 80,
-                width: 80,
+                height: 60,
+                width: 60,
               }}
-              source={require("@/assets/bloodpouch.png")}
+              source={require("@/assets/images/firstaid.png")}
             />
           </View>
         </View>
@@ -139,30 +162,38 @@ export default function DonateScreen() {
           }}
         >
           <Pressable
-            style={{
-              backgroundColor: "#FF546B",
-              paddingVertical: 10,
-              paddingHorizontal: 50,
-              borderRadius: 20,
-            }}
+            onPress={() => setIsDonate(true)}
+            style={[
+              {
+                paddingVertical: 10,
+                paddingHorizontal: 50,
+                borderRadius: 20,
+              },
+              isDonate && { backgroundColor: "#FF546B" },
+            ]}
           >
-            <Text>Donate blood</Text>
+            <Text style={[isDonate && { color: "white" }]}>Donate blood</Text>
           </Pressable>
           <Pressable
-            style={{
-              //   backgroundColor: "#FF546B",
-              paddingVertical: 10,
-              paddingHorizontal: 50,
-              borderRadius: 20,
-            }}
+            onPress={() => setIsDonate(false)}
+            style={[
+              {
+                paddingVertical: 10,
+                paddingHorizontal: 50,
+                borderRadius: 20,
+              },
+              !isDonate && { backgroundColor: "#FF546B" },
+            ]}
           >
-            <Text>Request blood</Text>
+            <Text style={[[!isDonate && { color: "white" }]]}>
+              Request blood
+            </Text>
           </Pressable>
         </View>
       </View>
 
       <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
-        {[...Array(3)].map((e, i) => (
+        {tabs.map((e, i) => (
           <View key={i}>
             <View
               style={{
@@ -176,16 +207,11 @@ export default function DonateScreen() {
                 borderRadius: 10,
                 justifyContent: "center",
                 alignItems: "center",
+                gap: 6,
               }}
             >
-              <Image
-                style={{
-                  height: 40,
-                  width: 40,
-                }}
-                source={require("@/assets/bloodpouch.png")}
-              />
-              <Text style={{ fontSize: 12 }}>Donate Blood</Text>
+              {e.icon}
+              <Text style={{ fontSize: 12 }}>{e.title}</Text>
             </View>
           </View>
         ))}
@@ -203,7 +229,87 @@ export default function DonateScreen() {
           <Text style={{ color: "#DD383F" }}>Map</Text>
         </View>
       </View>
-      <View
+      <Link href="/appointment" asChild>
+        <Pressable
+          style={{
+            marginHorizontal: 30,
+            backgroundColor: "white",
+            elevation: 3,
+            borderRadius: 15,
+          }}
+        >
+          <ImageBackground
+            source={require("@/assets/images/hospital.png")}
+            imageStyle={{ borderTopLeftRadius: 15, borderTopRightRadius: 15 }}
+            style={{
+              height: 150,
+              width: "100%",
+              alignItems: "flex-end",
+            }}
+          >
+            <Text
+              style={{
+                backgroundColor: "#FFEDEF",
+                color: "#DD383F",
+                borderRadius: 10,
+                padding: 4,
+                width: 100,
+                textAlign: "center",
+                margin: 10,
+              }}
+            >
+              Urgent
+            </Text>
+            <ImageBackground
+              source={require("@/assets/images/c1.png")}
+              style={{
+                flexDirection: "row",
+                gap: 2,
+                alignItems: "center",
+                paddingVertical: 2,
+                width: 170,
+                paddingLeft: 10,
+                paddingTop: 6,
+                position: "absolute",
+                bottom: 0,
+                left: 0,
+              }}
+            >
+              <AntDesign name="clockcircleo" size={24} color="black" />
+              <Text style={{ fontSize: 14 }}>12 min away</Text>
+            </ImageBackground>
+          </ImageBackground>
+          <View
+            style={{
+              padding: 20,
+              paddingBottom: 50,
+              borderBottomLeftRadius: 15,
+              borderBottomRightRadius: 15,
+            }}
+          >
+            <Text style={{ fontSize: 20, fontWeight: 600 }}>
+              Neelam Hospital Blood Bank
+            </Text>
+            <Text style={{ fontSize: 14, opacity: 0.7 }}>Rajpura, Punjab</Text>
+            <Pressable
+              style={{
+                backgroundColor: "#DD383F",
+                padding: 10,
+                borderRadius: 10,
+                width: 100,
+                position: "absolute",
+                right: 20,
+                bottom: 20,
+              }}
+            >
+              <Text style={{ color: "white", textAlign: "center" }}>
+                Donate
+              </Text>
+            </Pressable>
+          </View>
+        </Pressable>
+      </Link>
+      {/* <View
         style={{
           flexDirection: "row",
           justifyContent: "space-evenly",
@@ -265,7 +371,7 @@ export default function DonateScreen() {
             <Text style={{ color: "white" }}>Donate</Text>
           </Pressable>
         </View>
-      </View>
+      </View> */}
     </SafeAreaView>
   );
 }

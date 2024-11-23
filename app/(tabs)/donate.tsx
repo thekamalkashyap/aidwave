@@ -4,6 +4,5 @@ import ProfileScreen from "@/screens/Profile";
 import PastRequestScreen from "@/screens/PastRequest";
 
 export default function Donate() {
-  // return <DonateScreen />;
-  return <PastRequestScreen />;
+  return <DonateScreen />;
 }
